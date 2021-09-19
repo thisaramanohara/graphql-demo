@@ -9,13 +9,13 @@ const typeDefs = gql `
 `
 
 //resolver
-const resolver = {
+const resolvers = {
     Query: {
         hello: function() {return 'Hello wecome to GraphQL'}
     }
 }
 
-const server = new ApolloServer({typeDefs,resolver})
+const server = new ApolloServer({typeDefs,resolvers})
 
 server.listen(PORT).then(({url})=>console.log(`Server started at ${url}`))
 
