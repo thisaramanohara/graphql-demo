@@ -1,19 +1,20 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer} = require('apollo-server')
+const typeDefs = require('./graphql/typeDefs')
+const resolvers = require('./graphql/resolvers')
+const mongoose = require('mongoose')
+
 const PORT = 4000
 
-//schema
-const typeDefs = gql `
-    type Query {
-        hello: String
-    }
-`
+const URL = 'mongodb://localhost:27017/my_local_db'
+mongoose.connect(URL,{useNewUrlParser:true})
 
-//resolver
-const resolvers = {
-    Query: {
-        hello: function() {return 'Hello wecome to GraphQL'}
-    }
-}
+mongoose.connection.once('open', ()=> {
+    console.log('Database connection successfull');
+})
+
+mongoose.connection.on('error', ()=>{
+    console.log('Error while connecting database');
+})
 
 const server = new ApolloServer({typeDefs,resolvers})
 
