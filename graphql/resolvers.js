@@ -12,6 +12,9 @@ const resolvers = {
         },
         updateArticle:(parent, args) => {
             return Article.findByIdAndUpdate(args.id, args.articleInput,{new:true})
+        },
+        deleteArticle:(parent, args) =>{
+            return Article.findByIdAndDelete(args.id)
         }
     }
 }
