@@ -9,6 +9,9 @@ const resolvers = {
         createArticle: (parenr, args) => {
             let article = new Article(args.articleInput)
             return article.save()
+        },
+        updateArticle:(parent, args) => {
+            return Article.findByIdAndUpdate(args.id, args.articleInput,{new:true})
         }
     }
 }
